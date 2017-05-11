@@ -1,0 +1,31 @@
+#!/bin/sh
+
+source `(dirname $(readlink -f $0))`/ENV
+
+# Build container
+docker build -t ${CONTAINER_NAME} .
+
+docker run \
+    -it \
+    --rm \
+    -u `id -u`:`id -g` \
+    -v $WD/project:/project \
+    ${CONTAINER_NAME} \
+    install -g --silent vue-cli
+
+docker run \
+    -it \
+    --rm \
+    -u `id -u`:`id -g` \
+    -v $WD/project:/project \
+    ${CONTAINER_NAME} \
+    --entrypoint="vue" init webpack project 
+ 
+# Install dependencies
+docker run \
+    -it \
+    --rm \
+    -v $WD/project:/project \
+    -u `id -u`:`id -g` \
+    ${CONTAINER_NAME} \
+    install

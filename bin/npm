@@ -1,0 +1,4 @@
+#!/bin/sh
+WD=`(dirname $(readlink -f $0))`
+echo $WD'/../project'
+docker run -u `id -u`:`id -g` -v $WD/../project:/project rym/npm -d $@

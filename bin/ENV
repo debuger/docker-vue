@@ -1,0 +1,2 @@
+export CONTAINER_NAME=rym/npm
+export WD=`(dirname $(readlink -f $0))`/../
