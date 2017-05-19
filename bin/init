@@ -12,8 +12,9 @@ docker run \
     -w / \
     -u `id -u`:`id -g` \
     -v ${WD}/project:/project \
+    --entrypoint="vue" \
     ${CONTAINER_NAME} \
-    --entrypoint="vue" init webpack project 
+    init webpack project 
  
 # Install dependencies
 docker run \
