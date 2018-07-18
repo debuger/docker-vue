@@ -1,4 +1,4 @@
 #!/bin/sh
 source `(dirname $(readlink -f $0))`/ENV
 
-docker run -u `id -u`:`id -g` -v $WD/project:/project rym/npm -d $@
+docker run -u `id -u`:`id -g` -v $WD/project:/project ${CONTAINER_NAME} -d $@
