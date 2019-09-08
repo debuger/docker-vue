@@ -1,0 +1,21 @@
+image: node-10.16.3-alpine
+
+pipelines:
+  branches:
+    master:    
+      - step:
+          deployment: Production
+          name: Deploy to prod!
+          caches:
+          - npm
+          - docker
+          script:
+            - npm install
+            - npm build
+            - pipe: atlassian/rsync-deploy:0.3.1
+              variables:
+                USER: $SRV_USER
+                SERVER: $SRV_HOST
+                REMOTE_PATH: $SRV_DOC_ROOT
+                LOCAL_PATH: 'project/dist/*'
+                EXTRA_ARGS: '-a -r -u -z --links'
